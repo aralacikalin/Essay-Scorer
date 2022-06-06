@@ -52,19 +52,20 @@ def charCleaning(example):
 
 
 from transformers import BertTokenizerFast
-tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+from transformers import TransfoXLTokenizer, TransfoXLModel
+tokenizer = TransfoXLTokenizer.from_pretrained('transfo-xl-wt103')
 # from transformers import BigBirdTokenizer
 # tokenizer = BigBirdTokenizer.from_pretrained("google/bigbird-roberta-base")
 # from transformers import PegasusTokenizerFast
 # tokenizer = PegasusTokenizerFast.from_pretrained("hf-internal-testing/tiny-random-bigbird_pegasus")
 """Train Set Tokenization"""
-tokenizedDataset = trainSet.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
+tokenizedDataset = trainSet.map(lambda examples: tokenizer(examples['essay'],truncation=False,padding=True), batched=True)
 # tokenizedDataset = dataset.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
 print(tokenizedDataset.features)
 fullTrainSet=tokenizedDataset.map(addTokenLenght)
 
 """Test Set Tokenization"""
-tokenizedDataset = testSet.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
+tokenizedDataset = testSet.map(lambda examples: tokenizer(examples['essay'],truncation=False,padding=True), batched=True)
 # tokenizedDataset = dataset.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
 print(tokenizedDataset.features)
 fullTestSet=tokenizedDataset.map(addTokenLenght)
@@ -124,7 +125,7 @@ class FakeNewsClassifierModel(PreTrainedModel):
         # self.num_labels = config.num_labels
         self.num_labels = config.num_classes
 
-        self.bert = AutoModel.from_pretrained(config.bert_model_name)
+        self.bert = TransfoXLModel.from_pretrained("transfo-xl-wt103")
         self.clf = nn.Sequential(
             nn.Linear(self.bert.config.dim, self.bert.config.dim),
             nn.ELU(),

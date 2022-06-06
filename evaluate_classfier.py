@@ -10,12 +10,14 @@ import string
 import re
 from transformers import TrainingArguments, Trainer
 import numpy as np
+from transformers import TransfoXLTokenizer, TransfoXLModel
+
 class FakeNewsClassifierConfig(PretrainedConfig):
     model_type = "fakenews"
 
     def __init__(
             self,
-            bert_model_name: str = 'distilbert-base-uncased',
+            bert_model_name: str = 'transfo-xl-wt103',
             dropout_rate: float = 0.5,
             num_classes: int = 10,
             **kwargs) -> None:
@@ -47,7 +49,7 @@ class FakeNewsClassifierModel(PreTrainedModel):
         # self.num_labels = config.num_labels
         self.num_labels = config.num_classes
 
-        self.bert = AutoModel.from_pretrained(config.bert_model_name)
+        self.bert = TransfoXLModel.from_pretrained(config.bert_model_name)
         self.clf = nn.Sequential(
             nn.Linear(self.bert.config.dim, self.bert.config.dim),
             nn.ELU(),
@@ -110,7 +112,7 @@ testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/testSet.csv")
 for i in range(1,9):
     essaySet=testSet[testSet.essay_set==i]
     essaySet=Dataset.from_pandas(essaySet)
-    tokenizedDataset = essaySet.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
+    tokenizedDataset = essaySet.map(lambda examples: tokenizer(examples['essay'],truncation=False,padding=True), batched=True)
     testSets.append(tokenizedDataset)
 
 
