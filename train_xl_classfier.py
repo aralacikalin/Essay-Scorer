@@ -143,37 +143,14 @@ class FakeNewsClassifierModel(PreTrainedModel):
         # torch.FloatTensor of shape (batch_size, hidden_size)
         pooled_output = last_hidden_state[:, 0]
 
-        # has_company_logo=torch.reshape(has_company_logo,(has_company_logo.size(0),1))
-        # telecommuting=torch.reshape(telecommuting,(telecommuting.size(0),1))
-        # text_lenght=torch.reshape(text_lenght,(text_lenght.size(0),1))
-        # has_questions=torch.reshape(has_questions,(has_questions.size(0),1))
-
-        # torch.FloatTensor of shape (batch_size, num_labels)
-        # print(pooled_output.size(),has_company_logo.size(),has_questions.size(),telecommuting.size(),text_lenght.size())
         logits = self.clf(pooled_output)
 
         loss = None
-        # print(rater1_domain1.shape)
-        # print(logits.shape)
-        # predictions = torch.argmax(logits, dim=-1).float().to(logits.device).requires_grad_()
         if domain1_score is not None:
 
-            # print(logits.view(-1, self.num_labels).dtype)
-            # print(rater1_domain1.view(-1).dtype)
-            # loss_fn = nn.CrossEntropyLoss()
-            loss_fn = nn.MSELoss()
-            # print("")
-            # print(logits.view(-1, self.num_labels))
-            # print(rater1_domain1.long().to(logits.device))
-            # print("")
-            # loss = loss_fn(logits.view(-1, self.num_labels), F.one_hot(rater1_domain1.long(),num_classes=self.num_labels).view(-1,self.num_labels).float().to(logits.device))
-            # loss = loss_fn(logits.view(-1, self.num_labels), domain1_score.long().to(logits.device))
-            # print(predictions)
-            loss = loss_fn(logits.view(-1), domain1_score.to(logits.device))
-            # loss = loss_fn(logits.view(-1, self.num_labels), rater1_domain1.long().view(-1).to(logits.device))
-            # loss=dice_loss(logits, F.one_hot(labels,num_classes=2))
+            loss_fn = nn.CrossEntropyLoss()
+            loss = loss_fn(logits.view(-1, self.num_labels), domain1_score.long().to(logits.device))
 
-        # return SequenceClassifierOutput(loss=loss, logits=logits)
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
 hyperparams = {
@@ -185,10 +162,10 @@ config = FakeNewsClassifierConfig(**hyperparams)
 model = FakeNewsClassifierModel(config)
 
 training_args = TrainingArguments(
-    output_dir='/gpfs/space/home/aral/mtProject/results/transformerxl',
+    output_dir='/gpfs/space/home/aral/mtProject/results/transformerxl-classifier',
     learning_rate=1e-5,
-    per_device_train_batch_size=6,
-    per_device_eval_batch_size=6,
+    per_device_train_batch_size=2,
+    per_device_eval_batch_size=2,
     num_train_epochs=100,
     weight_decay=0.01,
     evaluation_strategy='steps',
@@ -200,12 +177,12 @@ training_args = TrainingArguments(
 metric = load_metric("accuracy")
 
 import sklearn
+
 labelsList=[i for i in range(61)]
+
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
-    # predictions = np.argmax(logits, axis=-1)
-    predictions = np.round(logits)
-    # return metric.compute(predictions=predictions, references=labels)
+    predictions = np.argmax(logits, axis=-1)
     return {"eval_kappa":sklearn.metrics.cohen_kappa_score(predictions, labels,weights="quadratic",labels=labelsList)}
 
 

@@ -1,16 +1,102 @@
-from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer, AutoConfig
-from datasets import load_dataset, Dataset, load_metric
+import torch
+import numpy
+from transformers import AutoModel, AutoTokenizer, BertTokenizer, BertConfig
+from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
+
+from datasets import load_dataset
+from datasets import Dataset
+import pandas as pd
+# data = pd.read_excel("/gpfs/space/home/aral/mtProject/training_set_rel3.xlsx")
+# data=data.dropna(subset=['domain1_score'])
+# dataset = Dataset.from_pandas(data)
+
+
+# ROWSTOTAKE=320
+
+# testSet=pd.DataFrame()
+# for i in range(1,9):
+#   dataToSample=data[data.essay_set==i]
+#   sampledData=dataToSample.sample(n=ROWSTOTAKE)
+#   testSet = pd.concat([testSet, sampledData], axis=0)
+
+# trainSet=data[~data.essay_id.isin(testSet.essay_id)]
+# trainSet = Dataset.from_pandas(trainSet)
+# testSet = Dataset.from_pandas(testSet)
+
+trainSet = pd.read_csv("/gpfs/space/home/aral/mtProject/trainSet.csv")
+testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/testSet.csv")
+
+trainSet = Dataset.from_pandas(trainSet)
+testSet = Dataset.from_pandas(testSet)
+
+def addTokenLenght(example):
+  tokenLength=0
+  for tok in example["input_ids"]:
+    if(tok!=0):
+      tokenLength+=1
+  # tokenLength=len(example["input_ids"])
+  example['text_lenght']=tokenLength
+  return example
+
+import string
+def charCleaning(example):
+  # specialChars=[]
+  fullText=example['text']
+  newFullText=""
+  # example['text']=fullText.encode('ascii',errors='ignore')
+  printable = set(string.printable)
+  for char in fullText:
+    if(not (char in printable)):
+      newFullText+=" "
+    else:
+      newFullText+=char
+  example['text']=newFullText
+
+  return example
+
+
+from transformers import BertTokenizerFast
+tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+# from transformers import BigBirdTokenizer
+# tokenizer = BigBirdTokenizer.from_pretrained("google/bigbird-roberta-base")
+# from transformers import PegasusTokenizerFast
+# tokenizer = PegasusTokenizerFast.from_pretrained("hf-internal-testing/tiny-random-bigbird_pegasus")
+"""Train Set Tokenization"""
+tokenizedDataset = trainSet.map(lambda examples: tokenizer(examples['essay'],padding=True))
+# tokenizedDataset = dataset.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
+print(tokenizedDataset.features)
+fullTrainSet=tokenizedDataset.map(addTokenLenght)
+
+# ids=[]
+# for i,row in enumerate(fullTrainSet):
+#   if row["text_lenght"] > 1000:
+#     ids.append(i)
+
+# fullTrainSet=fullTrainSet.select(ids)
+# print(len(fullTrainSet))
+
+"""Test Set Tokenization"""
+tokenizedDataset = testSet.map(lambda examples: tokenizer(examples['essay'],padding=True))
+# tokenizedDataset = dataset.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
+print(tokenizedDataset.features)
+fullTestSet=tokenizedDataset.map(addTokenLenght)
+raterVals=[]
+for text in fullTestSet:
+  if(text['essay']!=None):
+
+    raterVals.append(text['rater1_domain1'])
+  else:
+    print(text["essay_id"])
+max(raterVals)
+from transformers import TrainingArguments, Trainer
+from datasets import load_metric
 from transformers import AutoModel, PreTrainedModel, PretrainedConfig
 from transformers.modeling_outputs import SequenceClassifierOutput
 import torch
 import torch.nn as nn
-import pandas as pd
 from typing import Optional
-import string
-import re
-from transformers import TrainingArguments, Trainer
 import numpy as np
-
+import torch.nn.functional as F
 
 class FakeNewsClassifierConfig(PretrainedConfig):
     model_type = "fakenews"
@@ -49,8 +135,9 @@ class FakeNewsClassifierModel(PreTrainedModel):
 
         # self.num_labels = config.num_labels
         self.num_labels = config.num_classes
+        conf=BertConfig(max_position_embeddings =1500)
 
-        self.bert = AutoModel.from_pretrained(config.bert_model_name)
+        self.bert = AutoModel.from_pretrained(config.bert_model_name,config=conf)
         self.clf = nn.Sequential(
             nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),
             nn.ELU(),
@@ -100,39 +187,20 @@ class FakeNewsClassifierModel(PreTrainedModel):
         # return SequenceClassifierOutput(loss=loss, logits=logits)
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
-
-AutoConfig.register("fakenews", FakeNewsClassifierConfig)
-AutoModelForSequenceClassification.register(FakeNewsClassifierConfig, FakeNewsClassifierModel)
-
-model = AutoModelForSequenceClassification.from_pretrained(
-    '/gpfs/space/home/aral/mtProject/results/regression/checkpoint-64500')
-# tokenizer = AutoTokenizer.from_pretrained(
-#     '/gpfs/space/home/aral/nlpProject/results/4/checkpoint-268000')
-
-tokenizer = AutoTokenizer.from_pretrained('/gpfs/space/home/aral/mtProject/results/regression/checkpoint-64500')
-
-
-
-testSets=[]
-testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/testSet.csv")
-
-for i in range(1,9):
-    essaySet=testSet[testSet.essay_set==i]
-    essaySet=Dataset.from_pandas(essaySet)
-    tokenizedDataset = essaySet.map(lambda examples: tokenizer(examples['essay'],truncation=True,padding=True), batched=True)
-    testSets.append(tokenizedDataset)
-
-
-
-
-
+hyperparams = {
+    'bert_model_name': 'distilbert-base-uncased',
+    'dropout_rate': 0.15,
+    'num_classes': 1
+}
+config = FakeNewsClassifierConfig(**hyperparams)
+model = FakeNewsClassifierModel(config)
 
 training_args = TrainingArguments(
-    output_dir='/gpfs/space/home/aral/nlpProject/results/4-res',
+    output_dir='/gpfs/space/home/aral/mtProject/results/exp',
     learning_rate=1e-5,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=16,
-    num_train_epochs=300,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
+    num_train_epochs=100,
     weight_decay=0.01,
     evaluation_strategy='steps',
     metric_for_best_model='kappa',
@@ -140,44 +208,25 @@ training_args = TrainingArguments(
     label_names = ["domain1_score"]
 )
 
-# metric = load_metric('glue', 'mrpc')
-
+metric = load_metric("accuracy")
 
 import sklearn
+labelsList=[i for i in range(61)]
+def compute_metrics(eval_pred):
+    logits, labels = eval_pred
+    # predictions = np.argmax(logits, axis=-1)
+    predictions = np.round(logits)
+    # return metric.compute(predictions=predictions, references=labels)
+    return {"eval_kappa":sklearn.metrics.cohen_kappa_score(predictions, labels,weights="quadratic",labels=labelsList)}
 
 
-labelList=[None,13,7,4,4,5,5,31,61]
-labelsList8=[i for i in range(61)]
-scoreSum=0
-for i in range(1,9):
-  labelsList=[j for j in range(labelList[i])]
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=fullTrainSet,
+    eval_dataset=fullTestSet,
+    tokenizer=tokenizer,
+    compute_metrics=compute_metrics
+)
 
-
-
-  def compute_metrics(eval_pred):
-      logits, labels = eval_pred
-      # predictions = np.argmax(logits, axis=-1)
-      predictions = np.round(logits)
-
-
-      return {"eval_kappa":sklearn.metrics.cohen_kappa_score(predictions, labels,weights="quadratic",labels=labelsList)}
-
-
-
-  trainer = Trainer(
-      model=model,
-      args=training_args,
-      # train_dataset=fullDataset,
-      # eval_dataset=fullDataset_dev,
-      tokenizer=tokenizer,
-      compute_metrics=compute_metrics
-  )
-
-
-
-
-  results=trainer.evaluate(eval_dataset=testSets[i-1])
-  print(results)
-  scoreSum+=results["eval_kappa"]
-
-print("Average eval_Kappa: ",scoreSum/8)
+trainer.train()

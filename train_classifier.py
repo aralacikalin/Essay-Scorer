@@ -126,10 +126,10 @@ class FakeNewsClassifierModel(PreTrainedModel):
 
         self.bert = AutoModel.from_pretrained(config.bert_model_name)
         self.clf = nn.Sequential(
-            nn.Linear(self.bert.config.dim, self.bert.config.dim),
+            nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),
             nn.ELU(),
             nn.Dropout(config.dropout_rate),
-            nn.Linear(self.bert.config.dim, config.num_classes)
+            nn.Linear(self.bert.config.hidden_size, config.num_classes)
         )
 
     def forward(self, input_ids: torch.Tensor, attention_mask: torch.Tensor,domain1_score) -> SequenceClassifierOutput:
@@ -170,7 +170,7 @@ class FakeNewsClassifierModel(PreTrainedModel):
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
 hyperparams = {
-    'bert_model_name': 'distilbert-base-uncased',
+    'bert_model_name': 'bert-base-uncased',
     'dropout_rate': 0.15,
     'num_classes': 61
 }
@@ -178,7 +178,7 @@ config = FakeNewsClassifierConfig(**hyperparams)
 model = FakeNewsClassifierModel(config)
 
 training_args = TrainingArguments(
-    output_dir='/gpfs/space/home/aral/mtProject/results/classifier',
+    output_dir='/gpfs/space/home/aral/mtProject/results/fullbert-classifier',
     learning_rate=1e-5,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=1298,

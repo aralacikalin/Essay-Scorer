@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # The name of the job is test_job
-#SBATCH -J train_mt_exp_classifier
-
+#SBATCH -J train_mt_exp_test
 # Format of the output filename: slurm-jobname.jobid.out
 #SBATCH --output=nlp-%x.%j.out
 
@@ -38,4 +37,4 @@ module load any/python/3.8.3-conda
 conda activate mtcourse
 
 # Display fairseq's help message
-COMET_API_KEY="xLyDNwJVqiVwJcwFlcaSC2Urm" COMET_PROJECT_NAME="mt-project" /gpfs/space/home/aral/.conda/envs/mtcourse/bin/python /gpfs/space/home/aral/mtProject/train_classifier.py
+COMET_API_KEY="xLyDNwJVqiVwJcwFlcaSC2Urm" COMET_PROJECT_NAME="mt-project" /gpfs/space/home/aral/.conda/envs/mtcourse/bin/python /gpfs/space/home/aral/mtProject/train_exp.py

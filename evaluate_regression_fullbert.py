@@ -104,12 +104,14 @@ class FakeNewsClassifierModel(PreTrainedModel):
 AutoConfig.register("fakenews", FakeNewsClassifierConfig)
 AutoModelForSequenceClassification.register(FakeNewsClassifierConfig, FakeNewsClassifierModel)
 
-model = AutoModelForSequenceClassification.from_pretrained(
-    '/gpfs/space/home/aral/mtProject/results/regression/checkpoint-64500')
+# TODO: INSERT BEST CHECKPOINT
+modelPath='/gpfs/space/home/aral/mtProject/results/fullbert-regressor/checkpoint-50500'
+model = AutoModelForSequenceClassification.from_pretrained(modelPath
+    )
 # tokenizer = AutoTokenizer.from_pretrained(
 #     '/gpfs/space/home/aral/nlpProject/results/4/checkpoint-268000')
 
-tokenizer = AutoTokenizer.from_pretrained('/gpfs/space/home/aral/mtProject/results/regression/checkpoint-64500')
+tokenizer = AutoTokenizer.from_pretrained(modelPath)
 
 
 
@@ -153,7 +155,6 @@ for i in range(1,9):
   labelsList=[j for j in range(labelList[i])]
 
 
-
   def compute_metrics(eval_pred):
       logits, labels = eval_pred
       # predictions = np.argmax(logits, axis=-1)
@@ -177,7 +178,9 @@ for i in range(1,9):
 
 
   results=trainer.evaluate(eval_dataset=testSets[i-1])
+  print(labelsList)
   print(results)
+  print("----------------------------------------------------------")
   scoreSum+=results["eval_kappa"]
 
 print("Average eval_Kappa: ",scoreSum/8)

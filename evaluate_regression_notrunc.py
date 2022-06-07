@@ -1,4 +1,4 @@
-from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer, AutoConfig
+from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer, AutoConfig, BertConfig
 from datasets import load_dataset, Dataset, load_metric
 from transformers import AutoModel, PreTrainedModel, PretrainedConfig
 from transformers.modeling_outputs import SequenceClassifierOutput
@@ -49,8 +49,9 @@ class FakeNewsClassifierModel(PreTrainedModel):
 
         # self.num_labels = config.num_labels
         self.num_labels = config.num_classes
+        conf=BertConfig(max_position_embeddings =1500)
 
-        self.bert = AutoModel.from_pretrained(config.bert_model_name)
+        self.bert = AutoModel.from_pretrained(config.bert_model_name,config=conf)
         self.clf = nn.Sequential(
             nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),
             nn.ELU(),
@@ -100,16 +101,17 @@ class FakeNewsClassifierModel(PreTrainedModel):
         # return SequenceClassifierOutput(loss=loss, logits=logits)
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
-
 AutoConfig.register("fakenews", FakeNewsClassifierConfig)
 AutoModelForSequenceClassification.register(FakeNewsClassifierConfig, FakeNewsClassifierModel)
 
-model = AutoModelForSequenceClassification.from_pretrained(
-    '/gpfs/space/home/aral/mtProject/results/regression/checkpoint-64500')
+# TODO: INSERT BEST CHECKPOINT
+modelPath='/gpfs/space/home/aral/mtProject/results/notrunc-regressor/checkpoint-9000'
+model = AutoModelForSequenceClassification.from_pretrained(modelPath
+    )
 # tokenizer = AutoTokenizer.from_pretrained(
 #     '/gpfs/space/home/aral/nlpProject/results/4/checkpoint-268000')
 
-tokenizer = AutoTokenizer.from_pretrained('/gpfs/space/home/aral/mtProject/results/regression/checkpoint-64500')
+tokenizer = AutoTokenizer.from_pretrained(modelPath)
 
 
 
@@ -131,7 +133,7 @@ training_args = TrainingArguments(
     output_dir='/gpfs/space/home/aral/nlpProject/results/4-res',
     learning_rate=1e-5,
     per_device_train_batch_size=16,
-    per_device_eval_batch_size=16,
+    per_device_eval_batch_size=4,
     num_train_epochs=300,
     weight_decay=0.01,
     evaluation_strategy='steps',
@@ -151,7 +153,6 @@ labelsList8=[i for i in range(61)]
 scoreSum=0
 for i in range(1,9):
   labelsList=[j for j in range(labelList[i])]
-
 
 
   def compute_metrics(eval_pred):
@@ -177,7 +178,9 @@ for i in range(1,9):
 
 
   results=trainer.evaluate(eval_dataset=testSets[i-1])
+  print(labelsList)
   print(results)
+  print("----------------------------------------------------------")
   scoreSum+=results["eval_kappa"]
 
 print("Average eval_Kappa: ",scoreSum/8)
