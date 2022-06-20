@@ -23,8 +23,8 @@ import pandas as pd
 # trainSet = Dataset.from_pandas(trainSet)
 # testSet = Dataset.from_pandas(testSet)
 
-trainSet = pd.read_csv("/gpfs/space/home/aral/mtProject/trainSet.csv")
-testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/testSet.csv")
+trainSet = pd.read_csv("/gpfs/space/home/aral/mtProject/newTrainSet.csv")
+testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/newTestSet.csv")
 
 trainSet = Dataset.from_pandas(trainSet)
 testSet = Dataset.from_pandas(testSet)
@@ -170,7 +170,7 @@ class FakeNewsClassifierModel(PreTrainedModel):
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
 hyperparams = {
-    'bert_model_name': 'bert-base-uncased',
+    'bert_model_name': 'distilbert-base-uncased',
     'dropout_rate': 0.15,
     'num_classes': 61
 }
@@ -178,7 +178,7 @@ config = FakeNewsClassifierConfig(**hyperparams)
 model = FakeNewsClassifierModel(config)
 
 training_args = TrainingArguments(
-    output_dir='/gpfs/space/home/aral/mtProject/results/fullbert-classifier',
+    output_dir='/gpfs/space/home/aral/mtProject/results/distilbert-smarttrunc-classifier',
     learning_rate=1e-5,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=1298,

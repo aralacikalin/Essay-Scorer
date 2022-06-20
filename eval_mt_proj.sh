@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # The name of the job is test_job
-#SBATCH -J eval_mt_regression_notrunc
+#SBATCH -J eval_mt_distil_regression_smartTrunc
 
 # Format of the output filename: slurm-jobname.jobid.out
 #SBATCH --output=nlp-%x.%j.out
@@ -17,7 +17,9 @@
 #SBATCH --partition=gpu
 
 # Indicates that you need one GPU node
-#SBATCH --gres=gpu:a100-40g:1
+## --gres=gpu:a100-40g:1
+#SBATCH --gres=gpu:tesla:1
+
 
 
 # The maximum walltime of the job is 5 minutes
@@ -35,4 +37,4 @@ module load any/python/3.8.3-conda
 conda activate mtcourse
 
 # Display fairseq's help message
-/gpfs/space/home/aral/.conda/envs/mtcourse/bin/python /gpfs/space/home/aral/mtProject/evaluate_regression_notrunc.py
+/gpfs/space/home/aral/.conda/envs/mtcourse/bin/python /gpfs/space/home/aral/mtProject/evaluate_regression.py

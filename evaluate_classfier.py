@@ -102,12 +102,12 @@ model = AutoModelForSequenceClassification.from_pretrained(
 # tokenizer = AutoTokenizer.from_pretrained(
 #     '/gpfs/space/home/aral/nlpProject/results/4/checkpoint-268000')
 
-tokenizer = AutoTokenizer.from_pretrained('/gpfs/space/home/aral/mtProject/results/classifier/checkpoint-64500')
+tokenizer = AutoTokenizer.from_pretrained('/gpfs/space/home/aral/mtProject/results/distil-smarttrunc-regressor/checkpoint-42500-best')
 
 
 
 testSets=[]
-testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/testSet.csv")
+testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/newTestSet.csv")
 
 for i in range(1,9):
     essaySet=testSet[testSet.essay_set==i]

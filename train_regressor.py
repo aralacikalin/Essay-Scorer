@@ -23,8 +23,8 @@ import pandas as pd
 # trainSet = Dataset.from_pandas(trainSet)
 # testSet = Dataset.from_pandas(testSet)
 
-trainSet = pd.read_csv("/gpfs/space/home/aral/mtProject/trainSet.csv")
-testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/testSet.csv")
+trainSet = pd.read_csv("/gpfs/space/home/aral/mtProject/newTrainSet.csv")
+testSet = pd.read_csv("/gpfs/space/home/aral/mtProject/newTestSet.csv")
 
 trainSet = Dataset.from_pandas(trainSet)
 testSet = Dataset.from_pandas(testSet)
@@ -167,7 +167,10 @@ class FakeNewsClassifierModel(PreTrainedModel):
             # loss = loss_fn(logits.view(-1, self.num_labels), F.one_hot(rater1_domain1.long(),num_classes=self.num_labels).view(-1,self.num_labels).float().to(logits.device))
             # loss = loss_fn(logits.view(-1, self.num_labels), domain1_score.long().to(logits.device))
             # print(predictions)
-            loss = loss_fn(logits.view(-1), domain1_score.to(logits.device))
+            """MSE"""
+            # loss = loss_fn(logits.view(-1), domain1_score.to(logits.device))
+            """MSLE"""
+            loss= torch.sqrt(loss_fn(torch.log(logits.view(-1) + 1), torch.log(domain1_score.to(logits.device) + 1)))
             # loss = loss_fn(logits.view(-1, self.num_labels), rater1_domain1.long().view(-1).to(logits.device))
             # loss=dice_loss(logits, F.one_hot(labels,num_classes=2))
 
@@ -175,7 +178,7 @@ class FakeNewsClassifierModel(PreTrainedModel):
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
 hyperparams = {
-    'bert_model_name': 'bert-base-uncased',
+    'bert_model_name': 'distilbert-base-uncased',
     'dropout_rate': 0.15,
     'num_classes': 1
 }
@@ -183,7 +186,7 @@ config = FakeNewsClassifierConfig(**hyperparams)
 model = FakeNewsClassifierModel(config)
 
 training_args = TrainingArguments(
-    output_dir='/gpfs/space/home/aral/mtProject/results/smarttrunc-regressor',
+    output_dir='/gpfs/space/home/aral/mtProject/results/distil-smarttrunc-msle-regressor',
     learning_rate=1e-5,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=1298,

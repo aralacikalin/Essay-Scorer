@@ -105,7 +105,7 @@ AutoConfig.register("fakenews", FakeNewsClassifierConfig)
 AutoModelForSequenceClassification.register(FakeNewsClassifierConfig, FakeNewsClassifierModel)
 
 # TODO: INSERT BEST CHECKPOINT
-modelPath='/gpfs/space/home/aral/mtProject/results/fullbert-regressor/checkpoint-50500'
+modelPath='/gpfs/space/home/aral/mtProject/results/fullbert-smarttrunc-regressor/checkpoint-26000-best'
 model = AutoModelForSequenceClassification.from_pretrained(modelPath
     )
 # tokenizer = AutoTokenizer.from_pretrained(
