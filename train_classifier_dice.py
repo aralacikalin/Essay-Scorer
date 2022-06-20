@@ -86,8 +86,8 @@ from typing import Optional
 import numpy as np
 import torch.nn.functional as F
 
-class FakeNewsClassifierConfig(PretrainedConfig):
-    model_type = "fakenews"
+class EssayScorerConfig(PretrainedConfig):
+    model_type = "essayscorer"
 
     def __init__(
             self,
@@ -95,7 +95,7 @@ class FakeNewsClassifierConfig(PretrainedConfig):
             dropout_rate: float = 0.5,
             num_classes: int = 10,
             **kwargs) -> None:
-        """Initialize the Fake News Classifier Confing.
+        """Initialize the Essay Scorer Config.
 
         Args:
             bert_model_name (str, optional): Name of pretrained BERT model. Defaults to 'distilbert-base-uncased'.
@@ -117,13 +117,13 @@ def dice_loss(pred,target):
     return 1 - torch.mean((numerator + 1) / (denominator + 1))
 
 
-class FakeNewsClassifierModel(PreTrainedModel):
-    """DistilBERT based model for fake news classification."""
+class EssayScorerModel(PreTrainedModel):
+    """DistilBERT based model for essay scoring."""
 
-    config_class = FakeNewsClassifierConfig
+    config_class = EssayScorerConfig
 
     def __init__(self, config: PretrainedConfig) -> None:
-        """Initialize the Fake News Classifier Model.
+        """Initialize the Essay Scorer Model.
 
         Args:
             config (PretrainedConfig): Config with model's hyperparameters.
@@ -185,8 +185,8 @@ hyperparams = {
     'dropout_rate': 0.15,
     'num_classes': 61
 }
-config = FakeNewsClassifierConfig(**hyperparams)
-model = FakeNewsClassifierModel(config)
+config = EssayScorerConfig(**hyperparams)
+model = EssayScorerModel(config)
 
 training_args = TrainingArguments(
     output_dir='/gpfs/space/home/aral/mtProject/results/distilbert-smarttrunc-classifier-dice',

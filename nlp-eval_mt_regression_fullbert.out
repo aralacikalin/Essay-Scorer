@@ -2,75 +2,174 @@ comet_ml is installed but `COMET_API_KEY` is not set.
 Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertModel: ['cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.seq_relationship.weight', 'cls.predictions.bias', 'cls.seq_relationship.bias']
 - This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  2.90ba/s]100%|██████████| 1/1 [00:00<00:00,  2.90ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  2.89ba/s]100%|██████████| 1/1 [00:00<00:00,  2.89ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  8.21ba/s]100%|██████████| 1/1 [00:00<00:00,  8.20ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  8.05ba/s]100%|██████████| 1/1 [00:00<00:00,  8.03ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  6.67ba/s]100%|██████████| 1/1 [00:00<00:00,  6.66ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  5.83ba/s]100%|██████████| 1/1 [00:00<00:00,  5.82ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  6.46ba/s]100%|██████████| 1/1 [00:00<00:00,  6.45ba/s]
-  0%|          | 0/1 [00:00<?, ?ba/s]100%|██████████| 1/1 [00:00<00:00,  5.10ba/s]100%|██████████| 1/1 [00:00<00:00,  5.09ba/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  2.90ba/s]
+100%|██████████| 1/1 [00:00<00:00,  2.90ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  2.89ba/s]
+100%|██████████| 1/1 [00:00<00:00,  2.89ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  8.21ba/s]
+100%|██████████| 1/1 [00:00<00:00,  8.20ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  8.05ba/s]
+100%|██████████| 1/1 [00:00<00:00,  8.03ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  6.67ba/s]
+100%|██████████| 1/1 [00:00<00:00,  6.66ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  5.83ba/s]
+100%|██████████| 1/1 [00:00<00:00,  5.82ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  6.46ba/s]
+100%|██████████| 1/1 [00:00<00:00,  6.45ba/s]
+
+  0%|          | 0/1 [00:00<?, ?ba/s]
+100%|██████████| 1/1 [00:00<00:00,  5.10ba/s]
+100%|██████████| 1/1 [00:00<00:00,  5.09ba/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 357
   Batch size = 16
-  0%|          | 0/23 [00:00<?, ?it/s] 13%|█▎        | 3/23 [00:00<00:00, 23.71it/s] 26%|██▌       | 6/23 [00:00<00:00, 19.98it/s] 39%|███▉      | 9/23 [00:00<00:00, 19.30it/s] 48%|████▊     | 11/23 [00:00<00:00, 19.04it/s] 57%|█████▋    | 13/23 [00:00<00:00, 18.90it/s] 65%|██████▌   | 15/23 [00:00<00:00, 18.81it/s] 74%|███████▍  | 17/23 [00:00<00:00, 18.69it/s] 83%|████████▎ | 19/23 [00:00<00:00, 18.63it/s] 91%|█████████▏| 21/23 [00:01<00:00, 18.63it/s]100%|██████████| 23/23 [00:01<00:00, 19.35it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/23 [00:00<?, ?it/s]
+ 13%|█▎        | 3/23 [00:00<00:00, 23.71it/s]
+ 26%|██▌       | 6/23 [00:00<00:00, 19.98it/s]
+ 39%|███▉      | 9/23 [00:00<00:00, 19.30it/s]
+ 48%|████▊     | 11/23 [00:00<00:00, 19.04it/s]
+ 57%|█████▋    | 13/23 [00:00<00:00, 18.90it/s]
+ 65%|██████▌   | 15/23 [00:00<00:00, 18.81it/s]
+ 74%|███████▍  | 17/23 [00:00<00:00, 18.69it/s]
+ 83%|████████▎ | 19/23 [00:00<00:00, 18.63it/s]
+ 91%|█████████▏| 21/23 [00:01<00:00, 18.63it/s]
+100%|██████████| 23/23 [00:01<00:00, 19.35it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 360
   Batch size = 16
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 {'eval_kappa': 0.7897213777018867, 'eval_loss': 0.7508907318115234, 'eval_runtime': 2.4406, 'eval_samples_per_second': 146.273, 'eval_steps_per_second': 9.424}
 ----------------------------------------------------------
-  0%|          | 0/23 [00:00<?, ?it/s] 13%|█▎        | 3/23 [00:00<00:00, 27.59it/s] 26%|██▌       | 6/23 [00:00<00:00, 21.39it/s] 39%|███▉      | 9/23 [00:00<00:00, 19.57it/s] 52%|█████▏    | 12/23 [00:00<00:00, 19.14it/s] 61%|██████    | 14/23 [00:00<00:00, 18.78it/s] 70%|██████▉   | 16/23 [00:00<00:00, 18.24it/s] 78%|███████▊  | 18/23 [00:00<00:00, 17.96it/s] 87%|████████▋ | 20/23 [00:01<00:00, 17.71it/s] 96%|█████████▌| 22/23 [00:01<00:00, 17.59it/s]100%|██████████| 23/23 [00:02<00:00,  8.22it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/23 [00:00<?, ?it/s]
+ 13%|█▎        | 3/23 [00:00<00:00, 27.59it/s]
+ 26%|██▌       | 6/23 [00:00<00:00, 21.39it/s]
+ 39%|███▉      | 9/23 [00:00<00:00, 19.57it/s]
+ 52%|█████▏    | 12/23 [00:00<00:00, 19.14it/s]
+ 61%|██████    | 14/23 [00:00<00:00, 18.78it/s]
+ 70%|██████▉   | 16/23 [00:00<00:00, 18.24it/s]
+ 78%|███████▊  | 18/23 [00:00<00:00, 17.96it/s]
+ 87%|████████▋ | 20/23 [00:01<00:00, 17.71it/s]
+ 96%|█████████▌| 22/23 [00:01<00:00, 17.59it/s]
+100%|██████████| 23/23 [00:02<00:00,  8.22it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 345
   Batch size = 16
 [0, 1, 2, 3, 4, 5, 6]
 {'eval_kappa': 0.6259655779915978, 'eval_loss': 0.3028137981891632, 'eval_runtime': 1.265, 'eval_samples_per_second': 284.576, 'eval_steps_per_second': 18.181}
 ----------------------------------------------------------
-  0%|          | 0/22 [00:00<?, ?it/s] 18%|█▊        | 4/22 [00:00<00:00, 33.32it/s] 36%|███▋      | 8/22 [00:00<00:00, 29.63it/s] 50%|█████     | 11/22 [00:00<00:00, 28.82it/s] 64%|██████▎   | 14/22 [00:00<00:00, 27.59it/s] 77%|███████▋  | 17/22 [00:00<00:00, 27.68it/s] 91%|█████████ | 20/22 [00:00<00:00, 27.59it/s]100%|██████████| 22/22 [00:00<00:00, 28.58it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/22 [00:00<?, ?it/s]
+ 18%|█▊        | 4/22 [00:00<00:00, 33.32it/s]
+ 36%|███▋      | 8/22 [00:00<00:00, 29.63it/s]
+ 50%|█████     | 11/22 [00:00<00:00, 28.82it/s]
+ 64%|██████▎   | 14/22 [00:00<00:00, 27.59it/s]
+ 77%|███████▋  | 17/22 [00:00<00:00, 27.68it/s]
+ 91%|█████████ | 20/22 [00:00<00:00, 27.59it/s]
+100%|██████████| 22/22 [00:00<00:00, 28.58it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 354
   Batch size = 16
 [0, 1, 2, 3]
 {'eval_kappa': 0.5823670327990009, 'eval_loss': 0.49551454186439514, 'eval_runtime': 0.8138, 'eval_samples_per_second': 423.957, 'eval_steps_per_second': 27.035}
 ----------------------------------------------------------
-  0%|          | 0/23 [00:00<?, ?it/s] 13%|█▎        | 3/23 [00:00<00:00, 28.37it/s] 26%|██▌       | 6/23 [00:00<00:00, 22.56it/s] 39%|███▉      | 9/23 [00:00<00:00, 21.12it/s] 52%|█████▏    | 12/23 [00:00<00:00, 20.56it/s] 65%|██████▌   | 15/23 [00:00<00:00, 20.23it/s] 78%|███████▊  | 18/23 [00:00<00:00, 20.07it/s] 91%|█████████▏| 21/23 [00:01<00:00, 19.91it/s]100%|██████████| 23/23 [00:01<00:00, 21.24it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/23 [00:00<?, ?it/s]
+ 13%|█▎        | 3/23 [00:00<00:00, 28.37it/s]
+ 26%|██▌       | 6/23 [00:00<00:00, 22.56it/s]
+ 39%|███▉      | 9/23 [00:00<00:00, 21.12it/s]
+ 52%|█████▏    | 12/23 [00:00<00:00, 20.56it/s]
+ 65%|██████▌   | 15/23 [00:00<00:00, 20.23it/s]
+ 78%|███████▊  | 18/23 [00:00<00:00, 20.07it/s]
+ 91%|█████████▏| 21/23 [00:01<00:00, 19.91it/s]
+100%|██████████| 23/23 [00:01<00:00, 21.24it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 361
   Batch size = 16
 [0, 1, 2, 3]
 {'eval_kappa': 0.7983729341294628, 'eval_loss': 0.2773961126804352, 'eval_runtime': 1.1318, 'eval_samples_per_second': 312.788, 'eval_steps_per_second': 20.322}
 ----------------------------------------------------------
-  0%|          | 0/23 [00:00<?, ?it/s] 13%|█▎        | 3/23 [00:00<00:00, 27.92it/s] 26%|██▌       | 6/23 [00:00<00:00, 21.58it/s] 39%|███▉      | 9/23 [00:00<00:00, 20.09it/s] 52%|█████▏    | 12/23 [00:00<00:00, 19.45it/s] 61%|██████    | 14/23 [00:00<00:00, 19.24it/s] 70%|██████▉   | 16/23 [00:00<00:00, 19.05it/s] 78%|███████▊  | 18/23 [00:00<00:00, 18.85it/s] 87%|████████▋ | 20/23 [00:01<00:00, 18.80it/s] 96%|█████████▌| 22/23 [00:01<00:00, 18.73it/s]100%|██████████| 23/23 [00:01<00:00, 19.76it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/23 [00:00<?, ?it/s]
+ 13%|█▎        | 3/23 [00:00<00:00, 27.92it/s]
+ 26%|██▌       | 6/23 [00:00<00:00, 21.58it/s]
+ 39%|███▉      | 9/23 [00:00<00:00, 20.09it/s]
+ 52%|█████▏    | 12/23 [00:00<00:00, 19.45it/s]
+ 61%|██████    | 14/23 [00:00<00:00, 19.24it/s]
+ 70%|██████▉   | 16/23 [00:00<00:00, 19.05it/s]
+ 78%|███████▊  | 18/23 [00:00<00:00, 18.85it/s]
+ 87%|████████▋ | 20/23 [00:01<00:00, 18.80it/s]
+ 96%|█████████▌| 22/23 [00:01<00:00, 18.73it/s]
+100%|██████████| 23/23 [00:01<00:00, 19.76it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 360
   Batch size = 16
 [0, 1, 2, 3, 4]
 {'eval_kappa': 0.8149100257069408, 'eval_loss': 0.2750377357006073, 'eval_runtime': 1.2158, 'eval_samples_per_second': 296.924, 'eval_steps_per_second': 18.918}
 ----------------------------------------------------------
-  0%|          | 0/23 [00:00<?, ?it/s] 13%|█▎        | 3/23 [00:00<00:00, 27.86it/s] 26%|██▌       | 6/23 [00:00<00:00, 21.54it/s] 39%|███▉      | 9/23 [00:00<00:00, 20.11it/s] 52%|█████▏    | 12/23 [00:00<00:00, 19.49it/s] 61%|██████    | 14/23 [00:00<00:00, 19.22it/s] 70%|██████▉   | 16/23 [00:00<00:00, 19.04it/s] 78%|███████▊  | 18/23 [00:00<00:00, 18.91it/s] 87%|████████▋ | 20/23 [00:01<00:00, 18.81it/s] 96%|█████████▌| 22/23 [00:01<00:00, 18.71it/s]100%|██████████| 23/23 [00:01<00:00, 19.82it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/23 [00:00<?, ?it/s]
+ 13%|█▎        | 3/23 [00:00<00:00, 27.86it/s]
+ 26%|██▌       | 6/23 [00:00<00:00, 21.54it/s]
+ 39%|███▉      | 9/23 [00:00<00:00, 20.11it/s]
+ 52%|█████▏    | 12/23 [00:00<00:00, 19.49it/s]
+ 61%|██████    | 14/23 [00:00<00:00, 19.22it/s]
+ 70%|██████▉   | 16/23 [00:00<00:00, 19.04it/s]
+ 78%|███████▊  | 18/23 [00:00<00:00, 18.91it/s]
+ 87%|████████▋ | 20/23 [00:01<00:00, 18.81it/s]
+ 96%|█████████▌| 22/23 [00:01<00:00, 18.71it/s]
+100%|██████████| 23/23 [00:01<00:00, 19.82it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 314
   Batch size = 16
 [0, 1, 2, 3, 4]
 {'eval_kappa': 0.8485632992010058, 'eval_loss': 0.2394930124282837, 'eval_runtime': 1.2125, 'eval_samples_per_second': 296.912, 'eval_steps_per_second': 18.969}
 ----------------------------------------------------------
-  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 27.74it/s] 30%|███       | 6/20 [00:00<00:00, 21.52it/s] 45%|████▌     | 9/20 [00:00<00:00, 20.07it/s] 60%|██████    | 12/20 [00:00<00:00, 19.44it/s] 70%|███████   | 14/20 [00:00<00:00, 19.17it/s] 80%|████████  | 16/20 [00:00<00:00, 19.01it/s] 90%|█████████ | 18/20 [00:00<00:00, 18.89it/s]100%|██████████| 20/20 [00:01<00:00, 19.84it/s]
-The following columns in the evaluation set  don't have a corresponding argument in `FakeNewsClassifierModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `FakeNewsClassifierModel.forward`,  you can safely ignore this message.
+
+  0%|          | 0/20 [00:00<?, ?it/s]
+ 15%|█▌        | 3/20 [00:00<00:00, 27.74it/s]
+ 30%|███       | 6/20 [00:00<00:00, 21.52it/s]
+ 45%|████▌     | 9/20 [00:00<00:00, 20.07it/s]
+ 60%|██████    | 12/20 [00:00<00:00, 19.44it/s]
+ 70%|███████   | 14/20 [00:00<00:00, 19.17it/s]
+ 80%|████████  | 16/20 [00:00<00:00, 19.01it/s]
+ 90%|█████████ | 18/20 [00:00<00:00, 18.89it/s]
+100%|██████████| 20/20 [00:01<00:00, 19.84it/s]
+The following columns in the evaluation set  don't have a corresponding argument in `EssayScorerModel.forward` and have been ignored: rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2. If rater1_trait6, rater2_trait4, rater2_trait3, rater2_trait6, rater2_domain1, rater1_trait3, rater1_trait2, Unnamed: 0, rater2_trait2, rater2_trait1, rater1_trait4, essay_set, rater3_domain1, rater3_trait2, essay, essay_id, rater1_domain1, rater2_trait5, token_type_ids, rater3_trait3, rater3_trait6, domain2_score, rater3_trait1, rater3_trait4, rater1_domain2, __index_level_0__, rater3_trait5, rater1_trait1, rater1_trait5, rater2_domain2 are not expected by `EssayScorerModel.forward`,  you can safely ignore this message.
 ***** Running Evaluation *****
   Num examples = 145
   Batch size = 16
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 {'eval_kappa': 0.8370258956033648, 'eval_loss': 6.148499488830566, 'eval_runtime': 1.0602, 'eval_samples_per_second': 296.165, 'eval_steps_per_second': 18.864}
 ----------------------------------------------------------
-  0%|          | 0/10 [00:00<?, ?it/s] 30%|███       | 3/10 [00:00<00:00, 27.91it/s] 60%|██████    | 6/10 [00:00<00:00, 21.49it/s] 90%|█████████ | 9/10 [00:00<00:00, 20.00it/s]100%|██████████| 10/10 [00:00<00:00, 22.55it/s]
+
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 30%|███       | 3/10 [00:00<00:00, 27.91it/s]
+ 60%|██████    | 6/10 [00:00<00:00, 21.49it/s]
+ 90%|█████████ | 9/10 [00:00<00:00, 20.00it/s]
+100%|██████████| 10/10 [00:00<00:00, 22.55it/s]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
 {'eval_kappa': 0.7441182548058234, 'eval_loss': 15.611396789550781, 'eval_runtime': 0.4965, 'eval_samples_per_second': 292.034, 'eval_steps_per_second': 20.14}
 ----------------------------------------------------------

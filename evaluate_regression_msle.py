@@ -12,8 +12,8 @@ from transformers import TrainingArguments, Trainer
 import numpy as np
 
 
-class FakeNewsClassifierConfig(PretrainedConfig):
-    model_type = "fakenews"
+class EssayScorerConfig(PretrainedConfig):
+    model_type = "essayscorer"
 
     def __init__(
             self,
@@ -21,7 +21,7 @@ class FakeNewsClassifierConfig(PretrainedConfig):
             dropout_rate: float = 0.5,
             num_classes: int = 10,
             **kwargs) -> None:
-        """Initialize the Fake News Classifier Confing.
+        """Initialize the Essay Scorer Config.
 
         Args:
             bert_model_name (str, optional): Name of pretrained BERT model. Defaults to 'distilbert-base-uncased'.
@@ -34,13 +34,13 @@ class FakeNewsClassifierConfig(PretrainedConfig):
         super().__init__(**kwargs)
 
 
-class FakeNewsClassifierModel(PreTrainedModel):
-    """DistilBERT based model for fake news classification."""
+class EssayScorerModel(PreTrainedModel):
+    """DistilBERT based model for essay scoring."""
 
-    config_class = FakeNewsClassifierConfig
+    config_class = EssayScorerConfig
 
     def __init__(self, config: PretrainedConfig) -> None:
-        """Initialize the Fake News Classifier Model.
+        """Initialize the Essay Scorer Model.
 
         Args:
             config (PretrainedConfig): Config with model's hyperparameters.
@@ -102,8 +102,8 @@ class FakeNewsClassifierModel(PreTrainedModel):
         return SequenceClassifierOutput(loss=loss, logits=logits)
 
 
-AutoConfig.register("fakenews", FakeNewsClassifierConfig)
-AutoModelForSequenceClassification.register(FakeNewsClassifierConfig, FakeNewsClassifierModel)
+AutoConfig.register("essayscorer", EssayScorerConfig)
+AutoModelForSequenceClassification.register(EssayScorerConfig, EssayScorerModel)
 
 # TODO: INSERT BEST CHECKPOINT
 modelPath='/gpfs/space/home/aral/mtProject/results/distil-smarttrunc-msle-regressor/checkpoint-38000-best'

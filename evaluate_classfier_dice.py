@@ -20,8 +20,8 @@ def dice_loss(pred,target):
     denominator = torch.sum(pred + target)
     return 1 - torch.mean((numerator + 1) / (denominator + 1))
 
-class FakeNewsClassifierConfig(PretrainedConfig):
-    model_type = "fakenews"
+class EssayScorerConfig(PretrainedConfig):
+    model_type = "essayscorer"
 
     def __init__(
             self,
@@ -29,7 +29,7 @@ class FakeNewsClassifierConfig(PretrainedConfig):
             dropout_rate: float = 0.5,
             num_classes: int = 10,
             **kwargs) -> None:
-        """Initialize the Fake News Classifier Confing.
+        """Initialize the Essay Scorer Config.
 
         Args:
             bert_model_name (str, optional): Name of pretrained BERT model. Defaults to 'distilbert-base-uncased'.
@@ -41,13 +41,13 @@ class FakeNewsClassifierConfig(PretrainedConfig):
         self.num_classes = num_classes
         super().__init__(**kwargs)
 
-class FakeNewsClassifierModel(PreTrainedModel):
-    """DistilBERT based model for fake news classification."""
+class EssayScorerModel(PreTrainedModel):
+    """DistilBERT based model for essay scoring."""
 
-    config_class = FakeNewsClassifierConfig
+    config_class = EssayScorerConfig
 
     def __init__(self, config: PretrainedConfig) -> None:
-        """Initialize the Fake News Classifier Model.
+        """Initialize the Essay Scorer Model.
 
         Args:
             config (PretrainedConfig): Config with model's hyperparameters.
@@ -102,8 +102,8 @@ class FakeNewsClassifierModel(PreTrainedModel):
             # loss=dice_loss(logits, F.one_hot(labels,num_classes=2))
             loss=dLoss+cLoss
 
-AutoConfig.register("fakenews", FakeNewsClassifierConfig)
-AutoModelForSequenceClassification.register(FakeNewsClassifierConfig, FakeNewsClassifierModel)
+AutoConfig.register("essayscorer", EssayScorerConfig)
+AutoModelForSequenceClassification.register(EssayScorerConfig, EssayScorerModel)
 
 model = AutoModelForSequenceClassification.from_pretrained(
     '/gpfs/space/home/aral/mtProject/results/distilbert-smarttrunc-classifier-dice/checkpoint-62000-best')
